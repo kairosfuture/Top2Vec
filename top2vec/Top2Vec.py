@@ -187,7 +187,8 @@ class Top2Vec:
                  document_ids=None,
                  keep_documents=True,
                  tokenizer=None,
-                 verbose=True):
+                 verbose=True,
+                 min_cluster_size=15):
 
         if verbose:
             logger.setLevel(logging.DEBUG)
@@ -356,7 +357,7 @@ class Top2Vec:
 
         # find dense areas of document vectors
         logger.info('Finding dense areas of documents')
-        cluster = hdbscan.HDBSCAN(min_cluster_size=15,
+        cluster = hdbscan.HDBSCAN(min_cluster_size=min_cluster_size,
                                   metric='euclidean',
                                   cluster_selection_method='eom').fit(umap_model.embedding_)
 
